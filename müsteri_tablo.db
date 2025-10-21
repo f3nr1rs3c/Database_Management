@@ -1,0 +1,35 @@
+# Müşteriler Tablosu
+CREATE TABLE Musteriler(
+    musteriID INT PRIMARY KEY AUTO_INCREMENT,
+    ad VARCHAR(50) NOT NULL,
+    sehir VARCHAR(30),
+    eposta VARCHAR(100) UNIQUE
+);
+
+# Ürünler Tablosu
+CREATE TABLE Urunler(
+    urunID INT PRIMARY KEY AUTO_INCREMENT,
+    urunAdi VARCHAR(50) NOT NULL,
+    fiyat DECIMAL(10,2),
+    stok INT 
+);
+
+# Siparişler Tablosu
+CREATE TABLE Siparisler(
+    siparisID INT PRIMARY KEY AUTO_INCREMENT,
+    musteriID INT,
+    urunID INT,
+    adet INT,
+    siparisTarihi DATE,
+    FOREIGN KEY (musteriID) REFERENCES
+    Musteriler(MusteriID),
+    FOREIGN KEY (urunID) REFERENCES
+    Urunler(urunID)
+);
+
+# Geçici Tablo
+CREATE TABLE GeciciSiparisler(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    aciklama VARCHAR(100)
+);
+
