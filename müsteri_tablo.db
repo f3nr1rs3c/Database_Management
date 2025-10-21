@@ -1,35 +1,40 @@
-# Müşteriler Tablosu
-CREATE TABLE Musteriler(
-    musteriID INT PRIMARY KEY AUTO_INCREMENT,
+-- Önce veritabanını oluştur ve kullan
+CREATE DATABASE IF NOT EXISTS MagazaDB;
+USE MagazaDB;
+
+-- Müşteriler Tablosu
+CREATE TABLE Musteriler (
+    musteriID INT AUTO_INCREMENT PRIMARY KEY,
     ad VARCHAR(50) NOT NULL,
     sehir VARCHAR(30),
     eposta VARCHAR(100) UNIQUE
 );
 
-# Ürünler Tablosu
-CREATE TABLE Urunler(
-    urunID INT PRIMARY KEY AUTO_INCREMENT,
+-- Ürünler Tablosu
+CREATE TABLE Urunler (
+    urunID INT AUTO_INCREMENT PRIMARY KEY,
     urunAdi VARCHAR(50) NOT NULL,
     fiyat DECIMAL(10,2),
-    stok INT 
+    stok INT
 );
 
-# Siparişler Tablosu
-CREATE TABLE Siparisler(
-    siparisID INT PRIMARY KEY AUTO_INCREMENT,
+-- Siparişler Tablosu
+CREATE TABLE Siparisler (
+    siparisID INT AUTO_INCREMENT PRIMARY KEY,
     musteriID INT,
     urunID INT,
     adet INT,
     siparisTarihi DATE,
-    FOREIGN KEY (musteriID) REFERENCES
-    Musteriler(MusteriID),
-    FOREIGN KEY (urunID) REFERENCES
-    Urunler(urunID)
+    FOREIGN KEY (musteriID) REFERENCES Musteriler(musteriID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (urunID) REFERENCES Urunler(urunID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
-# Geçici Tablo
-CREATE TABLE GeciciSiparisler(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+-- Geçici Siparişler Tablosu
+CREATE TABLE GeciciSiparisler (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     aciklama VARCHAR(100)
 );
-
