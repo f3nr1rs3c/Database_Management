@@ -1,0 +1,56 @@
+CREATE DATABASE shopdogukan;
+USE shopdogukan;
+
+CREATE TABLE Musteriler (
+    musteriID INT AUTO_INCREMENT PRIMARY KEY,
+    ad VARCHAR(50),
+    sehir VARCHAR(50),
+    eposta VARCHAR(100)
+);
+
+CREATE TABLE Urunler (
+    urunID INT AUTO_INCREMENT PRIMARY KEY,
+    urunAdi VARCHAR(100),
+    fiyat DECIMAL(10,2),
+    stok INT
+);
+
+CREATE TABLE Siparisler (
+    siparisID INT AUTO_INCREMENT PRIMARY KEY,
+    musteriID INT,
+    urunID INT,
+    adet INT,
+    siparisTarihi DATE,
+    FOREIGN KEY (musteriID) REFERENCES Musteriler(musteriID),
+    FOREIGN KEY (urunID) REFERENCES Urunler(urunID)
+);
+
+CREATE TABLE GeciciSiparisler (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    aciklama TEXT
+);
+
+INSERT INTO Musteriler (ad, sehir, eposta) VALUES
+('Ali Veli', 'İstanbul', 'ali0@example.com'),
+('Ayşe Yılmaz', 'Ankara', 'ayse0@example.com'),
+('Mehmet Demir', 'İzmir', 'mehmet0@example.com'),
+('Fatma Kaya', 'Bursa', 'fatma0@example.com');
+
+INSERT INTO Urunler (urunAdi, fiyat, stok) VALUES
+('Kalem', 5.75, 100),
+('Defter', 12.50, 50),
+('Silgi', 3.80, 200),
+('Kitap', 25.30, 30);
+
+INSERT INTO Siparisler (musteriID, urunID, adet, siparisTarihi) VALUES
+(2, 2, 2, '2025-10-12'),
+(1, 4, 5, '2025-10-12'),
+(3, 1, 1, '2025-10-13'),
+(4, 3, 10, '2025-10-14');
+
+
+INSERT INTO GeciciSiparisler (aciklama) VALUES
+('Sipariş kontrol'),
+('Ürün stok kontrol'),
+('Fiyat güncelleme testi'),
+('Teslimat durumu testi');
